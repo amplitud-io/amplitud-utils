@@ -1,4 +1,4 @@
-import GenerativePreview from "./generative/preview.js";
+import ArtworkGenerator from "./artwork/generator.js";
 
 let traitsAndAttributes = {
     "Background": {
@@ -64,14 +64,14 @@ let traitsAndAttributes = {
                 "upload_order": 7
             },
             "red": {
-                "weight": 0.1,
+                "weight": 0.2,
                 "file": "red.png",
                 "hash": "7daa361598dfacc4a2a634b73575ed65",
                 "onlyone": false,
                 "upload_order": 8
             },
             "pink": {
-                "weight": 0.1,
+                "weight": 0.2,
                 "file": "red.png",
                 "hash": "7daa361598dfacc4a2a634b73575ed65",
                 "onlyone": false,
@@ -215,13 +215,14 @@ let rule2 = {
 
 
 console.log("Layer preview\n");
-console.log(GenerativePreview.generateLayerPreview(traitsAndAttributes, trait_order, 3));
+console.log(ArtworkGenerator.generateLayerPreview(traitsAndAttributes, trait_order, 3));
 console.log("\n\n");
 
 console.log("Combination preview\n");
-console.log(GenerativePreview.generateRulePreview(traitsAndAttributes, trait_order, rule1, 3));
+console.log(ArtworkGenerator.generateRulePreview(traitsAndAttributes, trait_order, rule1, 3));
 console.log("\n\n");
 
 console.log("Exclusion preview\n\n");
-console.log(GenerativePreview.generateRulePreview(traitsAndAttributes, trait_order, rule2, 3));
+console.log(ArtworkGenerator.generateRulePreview(traitsAndAttributes, trait_order, rule2, 3));
 console.log("\n\n");
+
