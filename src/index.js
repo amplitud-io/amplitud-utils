@@ -1,6 +1,6 @@
 import ArtworkGenerator from "./artwork/generator.js";
 
-let traitsAndAttributes = {
+let traits_and_attributes = {
     "Background": {
         "weight": 1,
         "attributes": {
@@ -106,7 +106,7 @@ let traitsAndAttributes = {
         }
     },
     "Iris": {
-        "weight": null,
+        "weight": 1,
         "attributes": {
             "large": {
                 "weight": null,
@@ -132,7 +132,7 @@ let traitsAndAttributes = {
         }
     },
     "Shine": {
-        "weight": 1,
+        "weight": 0.5,
         "attributes": {
             "shapes": {
                 "weight": 1,
@@ -144,7 +144,7 @@ let traitsAndAttributes = {
         }
     },
     "Top lid": {
-        "weight": null,
+        "weight": 1,
         "attributes": {
             "high": {
                 "weight": null,
@@ -188,7 +188,7 @@ let rule1 = {
     "others": [
         {
             "trait": "Iris",
-            "attribute": "large"
+            "attribute": "small"
         },
         {
             "trait": "Iris",
@@ -215,14 +215,19 @@ let rule2 = {
 
 
 console.log("Layer preview\n");
-console.log(ArtworkGenerator.generateLayerPreview(traitsAndAttributes, trait_order, 3));
+console.log(ArtworkGenerator.generateLayerPreview(traits_and_attributes, trait_order, 12));
 console.log("\n\n");
 
 console.log("Combination preview\n");
-console.log(ArtworkGenerator.generateRulePreview(traitsAndAttributes, trait_order, rule1, 3));
+console.log(ArtworkGenerator.generateRulePreview(traits_and_attributes, trait_order, rule1, 4));
 console.log("\n\n");
 
 console.log("Exclusion preview\n\n");
-console.log(ArtworkGenerator.generateRulePreview(traitsAndAttributes, trait_order, rule2, 3));
+console.log(ArtworkGenerator.generateRulePreview(traits_and_attributes, trait_order, rule2, 4));
+console.log("\n\n");
+
+
+console.log("NFTs generation\n\n");
+console.log(ArtworkGenerator.generateNFTs(traits_and_attributes, trait_order, [rule1, rule2], 20));
 console.log("\n\n");
 
