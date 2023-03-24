@@ -228,6 +228,9 @@ console.log("\n\n");
 
 
 console.log("NFTs generation\n\n");
-console.log(ArtworkGenerator.generateNFTs(traits_and_attributes, trait_order, [rule1, rule2], 20));
+let nfts = ArtworkGenerator.generateNFTs(traits_and_attributes, trait_order, [rule1, rule2], 20);
+let imgs = ArtworkGenerator.generateImageList(traits_and_attributes, trait_order, nfts);
+console.log(nfts);
+console.log(imgs);
 console.log("\n\n");
 

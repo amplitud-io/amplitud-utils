@@ -24,11 +24,7 @@ function generatePreview(traitsAndAttributes, traitsOrder, rule, tokenCount) {
         traitsOrder.forEach(traitName => {
             let attributeName = pickAttribute(traitName);
             if (attributeName) {
-                let attr = {
-                    trait: traitName,
-                    attribute: attributeName
-                };
-                attrs.push(attr);
+                attrs.push(traitsAndAttributes[traitName].attributes[attributeName].file)
                 idParts.push(traitName + '_' + attributeName);
                 if (!map[traitName]) {
                     map[traitName] = {};
@@ -67,7 +63,7 @@ function generatePreview(traitsAndAttributes, traitsOrder, rule, tokenCount) {
     }
 
     if (generated.length < tokenCount) {
-        throw new Error("Not enough traits to generate " + tokenCount + " NFTs. Please try adding more traits or reducing the number of NFTs.");
+        throw new Error("Couldn't generate " + tokenCount + " NFTs. Please add more traits, reduce the number of NFTs or revise the combinations/exclusions.");
     }
 
 
@@ -165,7 +161,7 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
                 map[traitName][attribute.name] = true;
 
                 if (attribute.onlyone) {
-                    onlyOneAttrs.push({trait: traitName, attribute: attribute.name});
+                    onlyOneAttrs.push({ trait: traitName, attribute: attribute.name });
                 }
             }
         });
@@ -217,11 +213,28 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
     }
 
     if (generated.length < tokenCount) {
-        throw new Error("Not enough traits to generate " + tokenCount + " NFTs. Please try adding more traits or reducing the number of NFTs.");
+        throw new Error("Couldn't generate " + tokenCount + " NFTs. Please add more traits, reduce the number of NFTs or revise the combinations/exclusions.");
     }
 
 
     return generated;
+}
+
+function generateImageList(traitsAndAttributes, traitsOrder, tokens) {
+    let imageList = [];
+    tokens.forEach(token => {
+        let images = [];
+        traitsOrder.forEach(traitName => {
+            let attributeName = token[traitName];
+            if (attributeName) {
+                let attribute = traitsAndAttributes[traitName].attributes[attributeName];
+                images.push(attribute.file);
+            }
+        });
+        imageList.push(images);
+    });
+
+    return imageList;
 }
 
 export default {
@@ -236,5 +249,9 @@ export default {
 
     generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
         return generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount);
+    },
+
+    generateImageList(traitsAndAttributes, traitsOrder, tokens) {
+        return generateImageList(traitsAndAttributes, traitsOrder, tokens);
     }
 }
