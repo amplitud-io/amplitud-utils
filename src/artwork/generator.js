@@ -75,6 +75,7 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
     let mapAttributes = {};
     let ids = {};
     let mapRarities = {};
+    let tokenId = 1;
 
     let maxAttempts = 100000;
     let attempts = 0;
@@ -203,7 +204,10 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
             }
 
             if (!skip) {
-                generated.push(attrs);
+                generated.push({
+                    tokenId: tokenId++,
+                    metadata: attrs
+                });
                 ids[id] = true;
                 onlyOneAttrs.forEach(attr => {
                     mapRarities[attr.trait].onlyOneAttributes.shift();
@@ -220,12 +224,12 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
     return generated;
 }
 
-function generateImageList(traitsAndAttributes, traitsOrder, tokens) {
+function getTokenImages(traitsAndAttributes, traitsOrder, tokens) {
     let imageList = [];
     tokens.forEach(token => {
         let images = [];
         traitsOrder.forEach(traitName => {
-            let attributeName = token[traitName];
+            let attributeName = token.metadata[traitName];
             if (attributeName) {
                 let attribute = traitsAndAttributes[traitName].attributes[attributeName];
                 images.push(attribute.file);
@@ -251,7 +255,7 @@ export default {
         return generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount);
     },
 
-    generateImageList(traitsAndAttributes, traitsOrder, tokens) {
-        return generateImageList(traitsAndAttributes, traitsOrder, tokens);
+    getTokenImages(traitsAndAttributes, traitsOrder, tokens) {
+        return getTokenImages(traitsAndAttributes, traitsOrder, tokens);
     }
 }
