@@ -244,12 +244,12 @@ function generatePreviews() {
 
     console.log("NFTs generation\n\n");
     let nfts = ArtworkGenerator.generateNFTs(traits_and_attributes, trait_order, [rule1, rule2], 20);
-    let imgs = ArtworkGenerator.getTokenImages(traits_and_attributes, trait_order, nfts);
+   // let imgs = ArtworkGenerator.getTokenImages(traits_and_attributes, trait_order, nfts);
     console.log(nfts);
-    console.log(imgs);
+    //console.log(imgs);
     console.log("\n\n");
 
 }
 
-//generatePreviews();
-readLayers();
+generatePreviews();
+//readLayers();

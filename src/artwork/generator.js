@@ -95,6 +95,9 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
 
         mapAttributes[traitName].forEach(attributeName => {
             let attribute = traitsAndAttributes[traitName].attributes[attributeName];
+            if (attribute.dynamic) {
+                return;
+            }
             if (attribute.onlyone) {
                 mapRarities[traitName].onlyOneAttributes.push(attributeName);
             } else {
@@ -115,12 +118,13 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
         let attributeName = null;
         let onlyone = false;
 
+        let onlyoneAttributes = mapRarities[traitName].onlyOneAttributes;
+
         let traitWeight = mapRarities[traitName].weight;
-        if (traitWeight < Math.random()) {
+        if (traitWeight < Math.random() && onlyoneAttributes.length === 0) {
             return null;
         }
 
-        let onlyoneAttributes = mapRarities[traitName].onlyOneAttributes;
         let attributes = mapRarities[traitName].attributes;
 
         if (onlyoneAttributes.length > 0) {
@@ -205,8 +209,7 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
 
             if (!skip) {
                 generated.push({
-                    tokenId: tokenId++,
-                    metadata: attrs
+                    ...attrs
                 });
                 ids[id] = true;
                 onlyOneAttrs.forEach(attr => {
