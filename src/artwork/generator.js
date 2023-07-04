@@ -168,6 +168,8 @@ function generateNFTs(traitsAndAttributes, traitsOrder, rules, tokenCount) {
                 if (attribute.onlyone) {
                     onlyOneAttrs.push({ trait: traitName, attribute: attribute.name });
                 }
+            } else {
+                attrs[traitName] = null;
             }
         });
 
