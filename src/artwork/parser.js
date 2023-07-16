@@ -106,8 +106,7 @@ export default {
             try {
                 layerHandler.onNewEntry(entry);
                 let result = await processEntry(entry);
-                layerHandler.handleEntry(entry, result.data, result.md5hash);
-                return false;
+                await layerHandler.handleEntry(entry, result.data, result.md5hash);
             } catch (err) {
                 console.log(err);
                 layerHandler.onError(err);
